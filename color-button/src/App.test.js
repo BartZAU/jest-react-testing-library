@@ -1,22 +1,43 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
 
-test("button has correct initial color", () => {
+// test("button has correct initial color", () => {
+//   render(<App />);
+
+//   // find an element with a role of button and text of 'Change to blue'
+//   const colorButton = screen.getByRole("button", { name: /change to blue/i });
+//   // expect the background color to be red
+//   expect(colorButton).toHaveStyle({ backgroundColor: "red" });
+//   // click button
+//   fireEvent.click(colorButton);
+//   // expect the background color to be blue
+//   expect(colorButton).toHaveStyle({ backgroundColor: "blue" });
+//   // expect the buttont ext to be 'Change to red
+//   // toBe does not accept regular expression
+//   expect(colorButton.textContent).toBe("Change to red");
+// });
+
+// test("initial conditions", () => {
+//   render(<App />);
+
+//   // check that the button starts out enabled
+//   const colorButton = screen.getByRole("button", { name: /change to blue/i });
+//   expect(colorButton).toBeEnabled();
+
+//   // check that the checkbox starts out unchecked
+//   const checkbox = screen.getByRole("checkbox");
+//   expect(checkbox).not.toBeChecked();
+// });
+
+// quiz 1
+test("checkbox toggle disable/enable button", () => {
   render(<App />);
+  const checkbox = screen.getByRole("checkbox");
+  const button = screen.getByRole("button");
 
-  // find an element with a role of button and text of 'Change to blue'
-  const colorButton = screen.getByRole("button", { name: /change to blue/i });
+  fireEvent.click(checkbox);
+  expect(button).toBeDisabled();
 
-  // expect the background color to be red
-  expect(colorButton).toHaveStyle({ backgroundColor: "red" });
-
-  // click button
-  fireEvent.click(colorButton);
-
-  // expect the background color to be blue
-  expect(colorButton).toHaveStyle({ backgroundColor: "blue" });
-
-  // expect the buttont ext to be 'Change to red
-  // toBe does not accept regular expression
-  expect(colorButton.textContent).toBe("Change to red");
+  fireEvent.click(checkbox);
+  expect(button).toBeEnabled();
 });
