@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
+import { replaceCamelWithSpaces } from "./App";
 
 test("button has correct initial color", () => {
   render(<App />);
@@ -14,7 +15,7 @@ test("button has correct initial color", () => {
   expect(colorButton).toHaveStyle({ backgroundColor: "blue" });
   // expect the buttont ext to be 'Change to red
   // toBe does not accept regular expression
-  expect(colorButton.textContent).toBe("Change to red");
+  expect(colorButton).toHaveTextContent("Change to red");
 });
 
 test("initial conditions", () => {
@@ -47,4 +48,18 @@ test("checkbox toggle disable/enable button", () => {
 
   fireEvent.click(checkbox);
   expect(button).toBeEnabled();
+});
+
+describe("spaces before camel-case capital letters", () => {
+  test("works for no inner capital letters", () => {
+    expect(replaceCamelWithSpaces("Red")).toBe("Red");
+  });
+
+  test("works for one inner capital letter", () => {
+    expect(replaceCamelWithSpaces("MidnightBlue")).toBe("Midnight Blue");
+  });
+
+  test("works for multiple inne capital letters", () => {
+    expect(replaceCamelWithSpaces("MediumVioletRed")).toBe("Medium Violet Red");
+  });
 });
